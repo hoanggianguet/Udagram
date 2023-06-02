@@ -29,7 +29,7 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
 
   /**************************************************************************** */
   app.get("/filteredimage", async (req, res) => {
-    const imageUrl = req.query.image_url.toString();
+    const imageUrl: string = req.query.image_url.toString();
     if (!imageUrl) {
       return res.status(400).send({
         message: "The url of image is required!"
@@ -37,8 +37,8 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
     }
 
     try {
-      const filteredImage = await filterImageFromURL(imageUrl);
-      res.sendFile(filteredImage, () =>
+      const filteredImage: string = await filterImageFromURL(imageUrl);
+      res.status(200).sendFile(filteredImage, () =>
         deleteLocalFiles([filteredImage])
       );
     } catch (err) {
